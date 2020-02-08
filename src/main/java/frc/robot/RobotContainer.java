@@ -40,14 +40,14 @@ import static frc.robot.Constants.IntakeConstants.intakespeed;
  */
 public class RobotContainer {
   // The robot's subsystems
-  private final DriveSubsystem m_robotDrive = new DriveSubsystem();
-  private final BallLauncher m_robotLaunch = new BallLauncher();
+  //private final DriveSubsystem m_robotDrive = new DriveSubsystem();
+  //private final BallLauncher m_robotLaunch = new BallLauncher();
   private final UsbSerial gyro = new UsbSerial();
 
   private final double ballSpeed = 0.43;
   // The autonomous routines
-  private final IntakeSubsystem m_intakesystem = new IntakeSubsystem();
-  private final HopperSubsystem m_hoppersystem = new HopperSubsystem();
+  //private final IntakeSubsystem m_intakesystem = new IntakeSubsystem();
+  //private final HopperSubsystem m_hoppersystem = new HopperSubsystem();
   // A chooser for autonomous commands
   SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -61,18 +61,18 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    
+    /*
     m_intakesystem.setDefaultCommand(
       new DefaultIntake(
         m_intakesystem,
         () -> intakespeed
       )
     );
-    
+    */
 
-    //gyro.setDefaultCommand(new ReadGyro(gyro));
+    gyro.setDefaultCommand(new ReadGyro(gyro));
 
-    m_hoppersystem.setDefaultCommand(
+   /* m_hoppersystem.setDefaultCommand(
       new ManualHopper(
         m_hoppersystem,
         () -> m_driverController.getY(GenericHID.Hand.kRight)
@@ -105,7 +105,7 @@ public class RobotContainer {
 
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Autonomous").add(m_chooser);
-    Shuffleboard.getTab("Testing").add(m_hoppersystem);
+    Shuffleboard.getTab("Testing").add(m_hoppersystem); */
   }
 
   /**

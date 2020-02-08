@@ -7,12 +7,12 @@ import frc.robot.lib.CR16;
 
 public class UsbSerial extends SubsystemBase {
 
-    //private final SerialPort ArduinoSerial = new SerialPort(115200, SerialPort.Port.kUSB);
-    byte[] buffer = new byte[7];
-    int crc;
+    private final SerialPort ArduinoSerial = new SerialPort(115200, SerialPort.Port.kUSB1);
+    //byte[] buffer = new byte[7];
+    //int crc;
 
     public void getArduino(){
-
+        System.out.printf("hi \n"); 
         /*
         // test code for arduino crc. 
         buffer[0] = 0x21;
@@ -24,7 +24,7 @@ public class UsbSerial extends SubsystemBase {
         
         // ArduinoSerial.readString();
         crc = CR16.getCRC16(buffer);
-        //System.out.printf("%x \n", crc); 
+        System.out.printf("%x \n", crc); 
         */
     }
 }

@@ -1,18 +1,44 @@
 
 package frc.robot.subsystems;
 
+import java.lang.String;
+import java.nio.ByteOrder;
+import java.nio.ByteBuffer;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SerialPort;
+//SerialPort ArduinoSerial = new SerialPort(115200, ArduinoPort);
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import frc.robot.lib.CR16;
 
 public class UsbSerial extends SubsystemBase {
 
-    private final SerialPort ArduinoSerial = new SerialPort(115200, SerialPort.Port.kUSB1);
-    //byte[] buffer = new byte[7];
-    //int crc;
+    //SerialPort ArduinoSerial = new SerialPort(115200, ArduinoPort);
+    byte[] attitude  = new byte[4];
+    int bytesGot;
+    float pitch;
+   
+    //
+    public void getArduino(SerialPort ArduinoSerial){
+        //attitude = ArduinoSerial.readString();
 
-    public void getArduino(){
-        System.out.printf("hi \n"); 
+        bytesGot = ArduinoSerial.getBytesReceived();
+        if (bytesGot > 4){
+            attitude = ArduinoSerial.read(4);
+            pitch = ByteBuffer.wrap(attitude).order(ByteOrder.BIG_ENDIAN).getFloat();
+            System.out.printf("%f\n",pitch);
+    
+           
+            for (int i=0; i<4; i++){
+                System.out.printf("%x",attitude[i]);
+            }
+            System.out.printf("\n");
+            
+        }
+        
+        //System.out.printf("%d",bytesGot);
+        //System.out.printf("\n");
+
         /*
         // test code for arduino crc. 
         buffer[0] = 0x21;

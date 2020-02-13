@@ -9,24 +9,31 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.UsbSerial;
+import edu.wpi.first.wpilibj.SerialPort;
  
 public class ReadGyro extends CommandBase {
    private UsbSerial arduino = new UsbSerial();
+   SerialPort _serialport;
   /**
 
    */
-  public ReadGyro(UsbSerial subsystem) {
+  //, SerialPort ArduinoPort
+  public ReadGyro(UsbSerial subsystem, SerialPort ArduinoPort) {
+    _serialport = ArduinoPort;
     addRequirements(subsystem);
   }
 
   @Override
   public void initialize() {
-    
+    _serialport.reset();
+    //_serialport.flush();
   }
 
   @Override
   public void execute() {
-    arduino.getArduino();
+    //System.out.println("h");
+    //_serialport
+    arduino.getArduino(_serialport);
   }
   @Override
   public void end(boolean interrupted) {

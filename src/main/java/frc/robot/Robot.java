@@ -8,9 +8,12 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.SerialPort.Port;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import edu.wpi.first.networktables.*;
+import edu.wpi.first.wpilibj.SerialPort;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
@@ -31,7 +34,12 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
+    SerialPort ArduinoSerial = new SerialPort(115200, Port.kOnboard);
+    ArduinoSerial.reset();
+    ArduinoSerial.setReadBufferSize(4);
+    ArduinoSerial.setTimeout(0.2);
+    m_robotContainer = new RobotContainer(ArduinoSerial);
+
   }
 
   /**

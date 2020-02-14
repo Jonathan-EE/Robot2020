@@ -34,11 +34,7 @@ public class Robot extends TimedRobot {
   public void robotInit() {
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
-    SerialPort ArduinoSerial = new SerialPort(115200, Port.kOnboard);
-    ArduinoSerial.reset();
-    ArduinoSerial.setReadBufferSize(4);
-    ArduinoSerial.setTimeout(0.2);
-    m_robotContainer = new RobotContainer(ArduinoSerial);
+    m_robotContainer = new RobotContainer();
 
   }
 

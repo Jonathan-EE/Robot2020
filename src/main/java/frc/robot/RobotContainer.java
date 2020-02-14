@@ -20,7 +20,7 @@ import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.BallLauncher;
-import frc.robot.subsystems.UsbSerial;
+import frc.robot.subsystems.ArduinoSerial;
 
 import frc.robot.commands.DefaultLauncher;
 import frc.robot.commands.DefaultIntake;
@@ -43,7 +43,7 @@ public class RobotContainer {
   // The robot's subsystems
   //private final DriveSubsystem m_robotDrive = new DriveSubsystem();
   //private final BallLauncher m_robotLaunch = new BallLauncher();
-  private final UsbSerial gyro = new UsbSerial();
+  public static final ArduinoSerial arduino = new ArduinoSerial(new SerialPort(115200, SerialPort.Port.kOnboard));
 
   private final double ballSpeed = 0.43;
   // The autonomous routines
@@ -59,7 +59,7 @@ public class RobotContainer {
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
   //
-  public RobotContainer(SerialPort ArduinoPort) {
+  public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
@@ -71,8 +71,8 @@ public class RobotContainer {
       )
     );
     */
-    //
-    gyro.setDefaultCommand(new ReadGyro(gyro, ArduinoPort));
+    
+    arduino.setDefaultCommand(new ReadGyro(arduino));
 
    /* m_hoppersystem.setDefaultCommand(
       new ManualHopper(

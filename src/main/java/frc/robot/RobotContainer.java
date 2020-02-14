@@ -16,11 +16,13 @@ import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
+import edu.wpi.first.wpilibj.SerialPort;
+
 import frc.robot.subsystems.DriveSubsystem;
 import frc.robot.subsystems.HopperSubsystem;
 import frc.robot.subsystems.IntakeSubsystem;
 import frc.robot.subsystems.BallLauncher;
-import frc.robot.subsystems.UsbSerial;
+import frc.robot.subsystems.ArduinoSerial;
 
 import frc.robot.commands.DefaultLauncher;
 import frc.robot.commands.DefaultIntake;
@@ -59,9 +61,6 @@ public class RobotContainer {
   private final BallLauncher m_robotLaunch = new BallLauncher();
   
   @Log
-  private final UsbSerial gyro = new UsbSerial();
-  
-  @Log
   private final double ballSpeed = ballLaunchSpeed;
 
   @Log
@@ -69,6 +68,10 @@ public class RobotContainer {
 
   @Log
   private final HopperSubsystem m_hoppersystem = new HopperSubsystem();
+
+  @Log
+  public static final ArduinoSerial arduino = new ArduinoSerial(new SerialPort(115200, SerialPort.Port.kOnboard));
+
 
   // A simple autonomous routine that does something
   @Config.Command(name = "Autonomous Command")
@@ -89,7 +92,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    
 
     //gyro.setDefaultCommand(new ReadGyro(gyro));
 

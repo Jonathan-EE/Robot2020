@@ -8,25 +8,28 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.UsbSerial;
+import frc.robot.subsystems.ArduinoSerial;
+import edu.wpi.first.wpilibj.SerialPort;
+import frc.robot.RobotContainer;
  
 public class ReadGyro extends CommandBase {
-   private UsbSerial arduino = new UsbSerial();
+
   /**
 
    */
-  public ReadGyro(UsbSerial subsystem) {
+  //, SerialPort ArduinoPort
+  public ReadGyro(ArduinoSerial subsystem) {
     addRequirements(subsystem);
   }
 
   @Override
   public void initialize() {
-    
+
   }
 
   @Override
   public void execute() {
-    arduino.getArduino();
+    RobotContainer.arduino.getAngle();
   }
   @Override
   public void end(boolean interrupted) {

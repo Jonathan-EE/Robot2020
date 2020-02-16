@@ -40,7 +40,7 @@ public class ArduinoSerial extends SubsystemBase implements Loggable{
 
             for (int i=0; i<attitude.length; i++){
                 if (attitude[i] == 0x59 && attitude[i+1] == 0x42){
-                    if (i+6 < attitude.length){
+                    if (i+8 < attitude.length){
                         slice = Arrays.copyOfRange(attitude, i+2, i+6);
                         sliceCRC = Arrays.copyOfRange(attitude,i+6,i+8);
                         printByteArray(sliceCRC);

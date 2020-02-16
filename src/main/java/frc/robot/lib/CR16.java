@@ -46,8 +46,6 @@ public class CR16 {
 
 	public static void addCRC16(byte[] bytes) {
 		int val = CRC16(bytes);
-
-		
 		
 		bytes[bytes.length - 2] = (byte) (val & 0xFF);
 		bytes[bytes.length - 1] = (byte) ((val >> 8) & 0xFF);

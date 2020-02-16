@@ -18,6 +18,7 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.StartEndCommand;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj.SerialPort;
+import edu.wpi.cscore.UsbCamera;
 
 import edu.wpi.first.wpilibj.Servo;
 import frc.robot.subsystems.DriveSubsystem;
@@ -66,8 +67,6 @@ public class RobotContainer {
                        methodTypes = {double.class},
                        defaultValue = 1)
 
-
-  
   @Log
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
@@ -95,10 +94,8 @@ public class RobotContainer {
   @Config
   private final double servoCloseAngl = servoCloseAngle;
 
-
   @Log
   public static final ArduinoSerial arduino = new ArduinoSerial(new SerialPort(115200, SerialPort.Port.kOnboard));
-
 
   // A simple autonomous routine that does something
   @Config.Command(name = "Autonomous Command")
@@ -121,7 +118,6 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-
     //gyro.setDefaultCommand(new ReadGyro(gyro));
 
     m_hoppersystem.setDefaultCommand(
@@ -130,27 +126,13 @@ public class RobotContainer {
         () -> m_operatorController.getY(GenericHID.Hand.kRight)
       )
     );
+
     m_climber.setDefaultCommand(
       new ManualClimber(
         m_climber,
         () -> m_operatorController.getY(GenericHID.Hand.kLeft)
       )
     );
-    /* m_intakesystem.setDefaultCommand(
-      new DefaultIntake(m_intakesystem,
-      () -> hopperIntakeSpeed,
-      () -> launcherIntakeSpeed)); */
-    
-   
-/*       m_robotLaunch.setDefaultCommand(
-      
-      new DefaultLauncher(
-        m_robotLaunch,
-        () -> ballSpeed,
-        () -> ballSpeed
-      )
-    );  */
-
 
     // Configure default commands
     // Default robot Drive is single-stick curvature drive
@@ -161,8 +143,6 @@ public class RobotContainer {
             .arcadeDrive(m_driverController.getY(GenericHID.Hand.kLeft),
                             m_driverController.getX(GenericHID.Hand.kRight)), m_robotDrive));
     
-
-
     // Put the chooser on the dashboard
     Shuffleboard.getTab("Autonomous").add(m_chooser);
     Shuffleboard.getTab("Testing").add(m_hoppersystem);

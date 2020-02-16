@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import edu.wpi.first.wpilibj.SerialPort;
-import frc.robot.lib.CR16;
+import frc.robot.lib.CRC16CCITT;
 
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
@@ -44,7 +44,7 @@ public class ArduinoSerial extends SubsystemBase implements Loggable{
                         slice = Arrays.copyOfRange(attitude, i+2, i+6);
                         sliceCRC = Arrays.copyOfRange(attitude,i+6,i+8);
                         printByteArray(sliceCRC);
-                        crc = CR16.getCRC16(slice);
+                        crc = CRC16CCITT.getCRC16(slice);
                         //if (Byte.compare(crc,sliceCRC) == 0){
                             angleTemp = ByteBuffer.wrap(slice).order(ByteOrder.LITTLE_ENDIAN).getFloat();
                             if (Math.abs(angleTemp) < 360.1){

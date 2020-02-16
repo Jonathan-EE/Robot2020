@@ -16,9 +16,6 @@ public class DriveDistance extends CommandBase {
   private final double m_distance;
   private final double m_speed;
 
-  /**
-
-   */
   public DriveDistance(double inches, double speed, DriveSubsystem drive) {
     m_distance = inches;
     m_speed = speed;

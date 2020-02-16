@@ -14,23 +14,19 @@ import frc.robot.RobotContainer;
  
 public class ReadGyro extends CommandBase {
 
-  /**
-
-   */
-  //, SerialPort ArduinoPort
   public ReadGyro(ArduinoSerial subsystem) {
     addRequirements(subsystem);
   }
 
   @Override
-  public void initialize() {
-
+    public void initialize() {
   }
 
   @Override
   public void execute() {
-    RobotContainer.arduino.getAngle();
+    RobotContainer.arduino.updateAngle();
   }
+  
   @Override
   public void end(boolean interrupted) {
    

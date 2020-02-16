@@ -21,7 +21,10 @@ public class ArduinoSerial extends SubsystemBase implements Loggable{
     int crc;
     SerialPort arduino;
     //private final int frameHeaderByte = 0x59;
+
+    @Log 
     private float angle = 999;
+
     private float angleTemp = 999;
 
     public ArduinoSerial(SerialPort serial){
@@ -30,7 +33,7 @@ public class ArduinoSerial extends SubsystemBase implements Loggable{
         arduino.setReadBufferSize(20);
     }
 
-    public float getAngle(){
+    public void updateAngle(){
         
         bytesGot = arduino.getBytesReceived();
         bytesGot = testAttitude().length;
@@ -45,7 +48,7 @@ public class ArduinoSerial extends SubsystemBase implements Loggable{
                         sliceCRC = Arrays.copyOfRange(attitude,i+6,i+8);
                         printByteArray(sliceCRC);
                         crc = CRC16CCITT.getCRC16(slice);
-                        //if (Byte.compare(crc,sliceCRC) == 0){
+                        //if (Byte.compare(crc,sliceCRC) == 0 || 1){
                             angleTemp = ByteBuffer.wrap(slice).order(ByteOrder.LITTLE_ENDIAN).getFloat();
                             if (Math.abs(angleTemp) < 360.1){
                                 angle = angleTemp;
@@ -56,8 +59,6 @@ public class ArduinoSerial extends SubsystemBase implements Loggable{
                 }
             }
         }
-    
-        return angle;
 
         //System.out.printf("%d",bytesGot);
         //System.out.printf("\n");
@@ -75,6 +76,10 @@ public class ArduinoSerial extends SubsystemBase implements Loggable{
         crc = CR16.getCRC16(buffer);
         System.out.printf("%x \n", crc); 
         */
+    }
+
+    public double getAngle(){
+        return angle;
     }
 
     private void printByteArray(byte[] byteArray){

@@ -5,10 +5,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.Counter;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 
 import static frc.robot.Constants.HopperConstants.KEL_LIMIT_SWITCH; 
 import static frc.robot.Constants.HopperConstants.GUS_LIMIT_SWITCH; 
@@ -23,27 +20,13 @@ public class HopperSubsystem extends SubsystemBase implements Loggable {
      
      @Log(name = "Hopper Low Limit")
      DigitalInput _LowSwitch=new DigitalInput(GUS_LIMIT_SWITCH); 
-
-     //Counter UpperCounter = new Counter(_HighSwitch);
-     //Counter LowerCounter = new Counter(_LowSwitch);
-    
      
     public boolean isHighSwitchSet() {
         return !_HighSwitch.get();
-        //return UpperCounter.get() > 0;
-    }
-
-    public void initializeHighCounter() {
-      //  UpperCounter.reset();
     }
    
     public boolean isLowSwitchSet() {
         return !_LowSwitch.get();
-        //return LowerCounter.get() > 0;
-    }
-
-    public void initializeLowCounter() {
-        //LowerCounter.reset();
     }
 
     public void HopperMotor(double hopper_spd){

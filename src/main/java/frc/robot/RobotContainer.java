@@ -37,6 +37,7 @@ import frc.robot.commands.LowerWhopper;
 import frc.robot.commands.RaiseHopper;
 import frc.robot.commands.ManualHopper;
 import frc.robot.commands.HopperGyro;
+import frc.robot.commands.HopperGyroToggle;
 import frc.robot.commands.ReadGyro;
 import frc.robot.commands.MoveServo;
 import frc.robot.commands.ManualClimber;
@@ -74,7 +75,7 @@ public class RobotContainer {
   //@Log
   private final IntakeSubsystem m_intakesystem = new IntakeSubsystem();
 
-  //@Log
+  @Log
   private final HopperSubsystem m_hoppersystem = new HopperSubsystem();
 
   //@Log
@@ -97,8 +98,6 @@ public class RobotContainer {
 
   //@Config
   private final double servoCloseAngl = servoCloseAngle;
-
-  @Config.NumberSlider(name = "Hopper",defaultValue = -0.6) double hopperAngleSet = 15;
  
   // A simple autonomous routine that does something
   @Config.Command(name = "Autonomous Command")
@@ -124,14 +123,14 @@ public class RobotContainer {
     arduino.setDefaultCommand(new ReadGyro(arduino));
 
     
-    /*
+   /*
     m_hoppersystem.setDefaultCommand(
       new ManualHopper(
         m_hoppersystem,
         () -> m_operatorController.getY(GenericHID.Hand.kRight)
       )
     );
-    */
+   */
 
   /*
     m_hoppersystem.setDefaultCommand(
@@ -142,13 +141,13 @@ public class RobotContainer {
     );
     */
 
+    
     m_hoppersystem.setDefaultCommand(
       new HopperGyro(
-        m_hoppersystem,
-        () -> (hopperAngleSet) // convert to degrees
+        m_hoppersystem
       )
     );
-    
+  
     m_climber.setDefaultCommand(
       new ManualClimber(
         m_climber,
@@ -214,6 +213,8 @@ public class RobotContainer {
                 .whenReleased(new InstantCommand(m_intakesystem::stopIntake,m_intakesystem));
     //outRollerButton.toggleWhenPressed(new DefaultIntake(m_intakesystem,() -> -hopperIntakeSpeed));
     
+    JoystickButton HopperToggle = new JoystickButton(m_operatorController, XboxController.Button.kY.value);
+    HopperToggle.whenPressed(new HopperGyroToggle(m_hoppersystem));
     
     JoystickButton LaunchButton = new JoystickButton(m_operatorController, XboxController.Button.kB.value);
     LaunchButton.toggleWhenActive(new DefaultLauncher(m_robotLaunch).withTimeout(9));

@@ -18,7 +18,7 @@ import static frc.robot.Constants.ClimberConstants.CAN_ID_WINCH;
 /**
  * Add your docs here.
  */
-public class ClimberSubsystem extends SubsystemBase implements Loggable {
+public class ClimberSubsystem extends SubsystemBase {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   

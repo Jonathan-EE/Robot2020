@@ -13,12 +13,12 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import static frc.robot.Constants.BallLauncherConstants.CAN_ID_BALL_LAUNCH_LEFT;
 import static frc.robot.Constants.BallLauncherConstants.CAN_ID_BALL_LAUNCH_RIGHT;
 
-public class BallLauncher extends SubsystemBase implements Loggable {
+public class BallLauncher extends SubsystemBase {
 
-    @Log.SpeedController(name = "Launcher L Motor")
+    //@Log.SpeedController(name = "Launcher L Motor")
     private WPI_TalonSRX m_leftBallThrow = new WPI_TalonSRX(CAN_ID_BALL_LAUNCH_LEFT);
 
-    @Log.SpeedController(name = "Launcher R Motor")
+    //@Log.SpeedController(name = "Launcher R Motor")
     private WPI_TalonSRX m_rightBallThrow = new WPI_TalonSRX(CAN_ID_BALL_LAUNCH_RIGHT);
 
     private double m_rightMotorSpeed;

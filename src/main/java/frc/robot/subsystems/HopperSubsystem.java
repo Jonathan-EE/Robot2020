@@ -15,6 +15,9 @@ public class HopperSubsystem extends SubsystemBase implements Loggable {
 
     WPI_TalonSRX _HopperAxle = new WPI_TalonSRX(CAN_ID_Hopper_Axle);
 
+     @Log(name = "Hopper Set Point")
+     public double HopperSetpoint = 50;
+
      @Log(name = "Hopper High Limit")
      DigitalInput _HighSwitch=new DigitalInput(KEL_LIMIT_SWITCH); 
      
@@ -23,6 +26,18 @@ public class HopperSubsystem extends SubsystemBase implements Loggable {
      
     public boolean isHighSwitchSet() {
         return !_HighSwitch.get();
+    }
+
+    public void toggleHopperSetpoint(){
+        if (HopperSetpoint < 30 ){
+            HopperSetpoint = 60;
+        } else {
+            HopperSetpoint = 0;
+        }
+    }
+
+    public double getHopperSetpoint(){
+        return HopperSetpoint; 
     }
    
     public boolean isLowSwitchSet() {
@@ -34,26 +49,26 @@ public class HopperSubsystem extends SubsystemBase implements Loggable {
         // temporary max speed
         double spd = -hopper_spd;
 
-        if (Math.abs(spd) > 0.4){
-            spd = 0.4*Math.signum(spd);  
+        if (Math.abs(spd) > 1){
+            spd = 1*Math.signum(spd);  
         } 
 
         // temporary deadband
-        if (Math.abs(spd) < 0.01){
+        if (Math.abs(spd) < 0.001){
             spd = 0;
         }
    
-        _HopperAxle.set(spd); 
+        //_HopperAxle.set(spd); 
         
         //Logic needs to be tested to verify polarity is correct
         
-        /*
+        
         if ((_LowSwitch.get() && spd < 0) || _HighSwitch.get() && spd > 0 ) {
             _HopperAxle.set(spd);
         } else {
             _HopperAxle.set(0);
         }
-        */
+    
         
 
     }

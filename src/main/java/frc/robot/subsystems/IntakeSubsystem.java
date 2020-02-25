@@ -25,12 +25,12 @@ public class IntakeSubsystem extends SubsystemBase implements Loggable{
         m_intake.setNeutralMode(NeutralMode.Coast);
     }
 
-    @Config.NumberSlider(name = "Intake Speed",defaultValue = -0.6)
+    //@Config.NumberSlider(name = "Intake Speed",defaultValue = -0.6)
     public void setIntakeSpeed(double intakeSpeed){
         m_intakeSpeed = intakeSpeed;
     }
 
-    @Config.NumberSlider(name = "Slow Out Speed", defaultValue = 0.2)
+    //@Config.NumberSlider(name = "Slow Out Speed", defaultValue = 0.2)
     public void setSlowOutSpeed(double slowOutSpeed){
         m_slowOutSpeed = slowOutSpeed;
     }

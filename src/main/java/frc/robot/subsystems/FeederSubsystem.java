@@ -20,9 +20,9 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 /**
  * Add your docs here.
  */
-public class FeederSubsystem extends SubsystemBase implements Loggable {
+public class FeederSubsystem extends SubsystemBase  {
 
-  @Log.SpeedController(name = "Feeder Motor")
+  //@Log.SpeedController(name = "Feeder Motor")
   private WPI_VictorSPX m_feeder = new WPI_VictorSPX(FeederConstants.CAN_ID_Launcher_Intake);
 
   private double m_feederSpeed;
@@ -34,12 +34,12 @@ public class FeederSubsystem extends SubsystemBase implements Loggable {
     m_feeder.setNeutralMode(NeutralMode.Brake);
   }
 
-  @Config.NumberSlider(name = "Feeder Speed", defaultValue = 0.38)
+  //@Config.NumberSlider(name = "Feeder Speed", defaultValue = 0.38)
   public void setFeederSpeed(double feederSpeed){
     m_feederSpeed = feederSpeed;
   }
 
-  @Config.NumberSlider(name = "Slow Out Speed", defaultValue = 0.4)
+ // @Config.NumberSlider(name = "Slow Out Speed", defaultValue = 0.4)
   public void setSlowOutSpeed(double slowOutSpeed){
       m_slowOutSpeed = slowOutSpeed;
   }

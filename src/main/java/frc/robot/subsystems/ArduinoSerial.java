@@ -14,15 +14,20 @@ import io.github.oblarg.oblog.annotations.Log;
 
 public class ArduinoSerial extends SubsystemBase implements Loggable{
     //SerialPort ArduinoSerial = new SerialPort(115200, ArduinoPort);
+    //@Log
     byte[] attitude  = new byte[0];
+    //@Log
     byte[] slice = new byte[4];
+    //@Log
     byte[] sliceCRC = new byte[2];
-    int bytesGot;
+    
+    @Log.Graph
+    int bytesGot = 0;
     int crc;
     SerialPort arduino;
     //private final int frameHeaderByte = 0x59;
 
-    @Log 
+    @Log.Graph(name = "Angle")
     private float angle = 999;
 
     private float angleTemp = 999;
@@ -30,26 +35,28 @@ public class ArduinoSerial extends SubsystemBase implements Loggable{
     public ArduinoSerial(SerialPort serial){
         arduino = serial;
         arduino.reset();
-        arduino.setReadBufferSize(20);
+        arduino.setReadBufferSize(24);
     }
 
     public void updateAngle(){
         
         bytesGot = arduino.getBytesReceived();
-        bytesGot = testAttitude().length;
+        //System.out.printf("Bytes Got: %d\n",bytesGot);
+        //bytesGot = testAttitude().length;
         if (bytesGot >= 10){
-            //attitude = arduino.read(bytesGot);
-            attitude = testAttitude();
+            attitude = arduino.read(bytesGot);
+            //attitude = testAttitude();
 
             for (int i=0; i<attitude.length; i++){
                 if (attitude[i] == 0x59 && attitude[i+1] == 0x42){
                     if (i+6 < attitude.length){
                         slice = Arrays.copyOfRange(attitude, i+2, i+6);
                         sliceCRC = Arrays.copyOfRange(attitude,i+6,i+8);
-                        printByteArray(sliceCRC);
+                        //printByteArray(sliceCRC);
                         crc = CRC16CCITT.getCRC16(slice);
                         //if (Byte.compare(crc,sliceCRC) == 0 || 1){
                             angleTemp = ByteBuffer.wrap(slice).order(ByteOrder.LITTLE_ENDIAN).getFloat();
+                            //System.out.printf("%f",angleTemp);
                             if (Math.abs(angleTemp) < 360.1){
                                 angle = angleTemp;
                             }

@@ -39,7 +39,7 @@ public class HopperSubsystem extends SubsystemBase implements Loggable {
         } 
 
         // temporary deadband
-        if (Math.abs(spd) < 0.1){
+        if (Math.abs(spd) < 0.01){
             spd = 0;
         }
    

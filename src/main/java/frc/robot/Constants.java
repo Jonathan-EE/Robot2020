@@ -44,6 +44,10 @@ public final class Constants {
     public static final int KEL_LIMIT_SWITCH = 1; //upper limit switch
     public static final int GUS_LIMIT_SWITCH = 2; //lower limit switch
     public static final int CAN_ID_Hopper_Axle = 5; //Axle
+    public static final double maxAngle = 30;
+    public static final double minAngle = 10;
+    public static final double HOPPER_OFFSET = (maxAngle-minAngle)/2 + minAngle;
+    public static final double HOPPER_SCALE = (maxAngle-minAngle)/2;
   }
 
   public static final class IntakeConstants {
@@ -61,7 +65,6 @@ public final class Constants {
     public static final double servoAngle = 90; //Released Servo angle
     public static final double servoCloseAngle = 120; //Closed Servo Angle
   }
-
 
   public static final class OIConstants {
     public static final int kDriverControllerPort = 0;

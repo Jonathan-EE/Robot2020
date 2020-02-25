@@ -36,6 +36,7 @@ import frc.robot.commands.ShootBalls;
 import frc.robot.commands.LowerWhopper;
 import frc.robot.commands.RaiseHopper;
 import frc.robot.commands.ManualHopper;
+import frc.robot.commands.HopperGyro;
 import frc.robot.commands.ReadGyro;
 import frc.robot.commands.MoveServo;
 import frc.robot.commands.ManualClimber;
@@ -50,8 +51,8 @@ import static frc.robot.Constants.IntakeConstants.hopperIntakeSpeed;
 import static frc.robot.Constants.BallLauncherConstants.ballLaunchSpeed;
 import static frc.robot.Constants.ClimberConstants.servoAngle;
 import static frc.robot.Constants.ClimberConstants.servoCloseAngle;
-
-
+import static frc.robot.Constants.HopperConstants.HOPPER_OFFSET;
+import static frc.robot.Constants.HopperConstants.HOPPER_SCALE;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -67,36 +68,38 @@ public class RobotContainer {
                        methodTypes = {double.class},
                        defaultValue = 1)
 
-  @Log
+  //@Log
   private final DriveSubsystem m_robotDrive = new DriveSubsystem();
 
-  @Log
+  //@Log
   private final IntakeSubsystem m_intakesystem = new IntakeSubsystem();
 
-  @Log
+  //@Log
   private final HopperSubsystem m_hoppersystem = new HopperSubsystem();
 
-  @Log
+  //@Log
   private final FeederSubsystem m_feeder = new FeederSubsystem();
   
-  @Log
+  //@Log
   private final BallLauncher m_robotLaunch = new BallLauncher();
   
-  @Log
+  //@Log
   private final ClimberSubsystem m_climber = new ClimberSubsystem();
   
-  @Log
-  private final double ballSpeed = ballLaunchSpeed;
-
-  @Config
-  private final double servoAng = servoAngle;
-
-  @Config
-  private final double servoCloseAngl = servoCloseAngle;
-
-  @Log
+  //@Log
   public static final ArduinoSerial arduino = new ArduinoSerial(new SerialPort(115200, SerialPort.Port.kOnboard));
 
+  //@Log
+  private final double ballSpeed = ballLaunchSpeed;
+
+  //@Config
+  private final double servoAng = servoAngle;
+
+  //@Config
+  private final double servoCloseAngl = servoCloseAngle;
+
+  @Config.NumberSlider(name = "Hopper",defaultValue = -0.6) double hopperAngleSet = 15;
+ 
   // A simple autonomous routine that does something
   @Config.Command(name = "Autonomous Command")
   private final Command m_autoCommand =
@@ -118,15 +121,34 @@ public class RobotContainer {
     // Configure the button bindings
     configureButtonBindings();
 
-    //gyro.setDefaultCommand(new ReadGyro(gyro));
+    arduino.setDefaultCommand(new ReadGyro(arduino));
 
+    
+    /*
     m_hoppersystem.setDefaultCommand(
       new ManualHopper(
         m_hoppersystem,
         () -> m_operatorController.getY(GenericHID.Hand.kRight)
       )
     );
+    */
 
+  /*
+    m_hoppersystem.setDefaultCommand(
+      new HopperGyro(
+        m_hoppersystem,
+        () -> (m_operatorController.getY(GenericHID.Hand.kRight)*HOPPER_SCALE + HOPPER_OFFSET) // convert to degrees
+      )
+    );
+    */
+
+    m_hoppersystem.setDefaultCommand(
+      new HopperGyro(
+        m_hoppersystem,
+        () -> (hopperAngleSet) // convert to degrees
+      )
+    );
+    
     m_climber.setDefaultCommand(
       new ManualClimber(
         m_climber,

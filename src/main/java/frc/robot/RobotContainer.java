@@ -36,8 +36,6 @@ import frc.robot.commands.ShootBalls;
 import frc.robot.commands.LowerWhopper;
 import frc.robot.commands.RaiseHopper;
 import frc.robot.commands.ManualHopper;
-import frc.robot.commands.HopperGyro;
-import frc.robot.commands.HopperGyroToggle;
 import frc.robot.commands.ReadGyro;
 import frc.robot.commands.MoveServo;
 import frc.robot.commands.ManualClimber;
@@ -141,12 +139,13 @@ public class RobotContainer {
     );
     */
 
-    
+    /*
     m_hoppersystem.setDefaultCommand(
       new HopperGyro(
         m_hoppersystem
       )
     );
+    */
   
     m_climber.setDefaultCommand(
       new ManualClimber(
@@ -213,8 +212,8 @@ public class RobotContainer {
                 .whenReleased(new InstantCommand(m_intakesystem::stopIntake,m_intakesystem));
     //outRollerButton.toggleWhenPressed(new DefaultIntake(m_intakesystem,() -> -hopperIntakeSpeed));
     
-    JoystickButton HopperToggle = new JoystickButton(m_operatorController, XboxController.Button.kY.value);
-    HopperToggle.whenPressed(new HopperGyroToggle(m_hoppersystem));
+   // JoystickButton HopperToggle = new JoystickButton(m_operatorController, XboxController.Button.kY.value);
+   // HopperToggle.whenPressed(new HopperGyroToggle(m_hoppersystem));
     
     JoystickButton LaunchButton = new JoystickButton(m_operatorController, XboxController.Button.kB.value);
     LaunchButton.toggleWhenActive(new DefaultLauncher(m_robotLaunch).withTimeout(9));
